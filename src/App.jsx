@@ -1,4 +1,6 @@
+import AppDownloadSection from "./components/AppDownloadSection.jsx";
 import CategoryFilters from "./components/CategoryFilters.jsx";
+import Footer from "./components/Footer.jsx";
 import Navbar from "./components/Navbar.jsx";
 import ProductCarouselSection from "./components/ProductCarouselSection.jsx";
 import StoreHeroSection from "./components/StoreHeroSection.jsx";
@@ -11,5 +13,9 @@ export default function App() {
     <StoreHeroSection/>
     <CategoryFilters/>
     <ProductCarouselSection/>
+    <ProductCarouselSection />
+
+    <AppDownloadSection/>
+    <Footer/>
   </>;
 }

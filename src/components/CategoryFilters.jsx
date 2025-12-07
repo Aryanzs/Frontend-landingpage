@@ -23,16 +23,19 @@ const CategoryFilters = () => {
   const [activeId, setActiveId] = useState("all");
 
   return (
-    <section className="w-full" style={{ backgroundColor: "#FEFBF7" }}>
-      <div className="mx-auto flex max-w-6xl items-center justify-center gap-8 px-6 py-10">
-        {categories.map((cat) => (
-          <CategoryPill 
-            key={cat.id} 
-            category={cat} 
-            active={activeId === cat.id}
-            onClick={() => setActiveId(cat.id)}
-          />
-        ))}
+    <section className="w-full bg-[#FEFBF7]">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10">
+        {/* Wrapper becomes horizontal scroll on mobile, centered row on bigger screens */}
+        <div className="flex items-center justify-start md:justify-center gap-4 sm:gap-6 md:gap-8 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+          {categories.map((cat) => (
+            <CategoryPill
+              key={cat.id}
+              category={cat}
+              active={activeId === cat.id}
+              onClick={() => setActiveId(cat.id)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -45,53 +48,61 @@ const CategoryPill = ({ category, active, onClick }) => {
     <button
       type="button"
       onClick={onClick}
-      className="group flex flex-col items-center gap-3 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-      style={{ 
-        focusVisibleRing: "#E0E8E2"
-      }}
+      className="
+        group 
+        flex flex-col items-center 
+        gap-2 sm:gap-3 
+        min-w-[72px]
+        focus:outline-none 
+        focus-visible:ring-2 
+        focus-visible:ring-[#E0E8E2] 
+        focus-visible:ring-offset-2 
+        transition-transform 
+        hover:scale-105
+      "
     >
-      {/* Outer circle (white) */}
-      <div 
+      {/* Outer circle */}
+      <div
         className="relative flex items-center justify-center rounded-full transition-shadow"
         style={{
           width: "72px",
           height: "72px",
           backgroundColor: "#FFFFFF",
-          boxShadow: active 
-            ? "0 4px 12px rgba(0, 0, 0, 0.08)" 
-            : "0 2px 8px rgba(0, 0, 0, 0.04)"
+          boxShadow: active
+            ? "0 4px 12px rgba(0, 0, 0, 0.08)"
+            : "0 2px 8px rgba(0, 0, 0, 0.04)",
         }}
       >
-        {/* Inner circle (cream) */}
-        <div 
+        {/* Inner circle */}
+        <div
           className="flex items-center justify-center rounded-full transition-all"
           style={{
             width: "60px",
             height: "60px",
             backgroundColor: "#E0E8E2",
-            transform: active ? "scale(1)" : "scale(0.98)"
+            transform: active ? "scale(1)" : "scale(0.98)",
           }}
         >
-          <img 
+          <img
             src={icon}
             alt={label}
             className="object-contain"
-            style={{ 
-              width: `${size}px`, 
+            style={{
+              width: `${size}px`,
               height: `${size}px`,
-              maxWidth: "none"
+              maxWidth: "none",
             }}
           />
         </div>
-        
+
         {/* Active indicator dot */}
         {active && (
-          <div 
+          <div
             className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full"
             style={{
               width: "6px",
               height: "6px",
-              backgroundColor: "#2E4B32"
+              backgroundColor: "#2E4B32",
             }}
           />
         )}
@@ -99,9 +110,9 @@ const CategoryPill = ({ category, active, onClick }) => {
 
       {/* Label */}
       <span
-        className="text-sm font-medium transition-colors"
+        className="text-xs sm:text-sm font-medium transition-colors"
         style={{
-          color: active ? "#2E4B32" : "#666666"
+          color: active ? "#2E4B32" : "#666666",
         }}
       >
         {label}
