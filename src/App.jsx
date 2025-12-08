@@ -1,21 +1,17 @@
-import AppDownloadSection from "./components/AppDownloadSection.jsx";
-import CategoryFilters from "./components/CategoryFilters.jsx";
-import Footer from "./components/Footer.jsx";
-import Navbar from "./components/Navbar.jsx";
-import ProductCarouselSection from "./components/ProductCarouselSection.jsx";
-import StoreHeroSection from "./components/StoreHeroSection.jsx";
-import TopBar from "./components/TopBar.jsx";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Shop from "./pages/Shop.jsx";
+import ProductDetailsPage from "./pages/ProductDetailsPage.jsx";
 
 export default function App() {
-  return <>
-    <TopBar/>
-    <Navbar/>
-    <StoreHeroSection/>
-    <CategoryFilters/>
-    <ProductCarouselSection/>
-    <ProductCarouselSection />
+  return (
+    <Routes>
+      {/* main shop page */}
+      <Route path="/" element={<Shop />} />
 
-    <AppDownloadSection/>
-    <Footer/>
-  </>;
+      {/* individual product details */}
+      <Route path="/products/:id" element={<ProductDetailsPage />} />
+    </Routes>
+  );
 }
