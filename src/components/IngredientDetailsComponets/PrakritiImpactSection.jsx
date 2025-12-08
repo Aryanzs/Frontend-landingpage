@@ -1,55 +1,99 @@
+// src/components/ProductDetailsComponents/PrakritiImpactSection.jsx
 
-import { Droplets, Leaf, Flame } from "lucide-react";
-const PrakritiImpactSection = ({ className = "" }) => (
-  <div className={`mt-8 ${className}`}>
-    <h2 className="mb-4 text-sm font-semibold text-[#333333]">
+import React from "react";
+
+const PrakritiImpactSection = () => (
+  <div className="mt-8 font-poppins">
+    <h2 className="mb-5 text-sm md:text-base font-semibold text-[#1A1A1A]">
       Prakriti Impact
     </h2>
 
-    <div className="grid max-w-xs sm:max-w-sm gap-6 sm:grid-cols-3">
-      <DoshaCard label="Vata Balanced" color="#2F7B4A" />
-      <DoshaCard label="Kapha Balanced" color="#F4A11A" />
-      <DoshaCard label="Pitta Unbalanced" color="#E85C3C" unbalanced />
+    <div className="flex flex-wrap gap-8 sm:gap-12">
+      {/* hard-coded % values – tweak as you like */}
+      <DoshaCard
+        label="Vata Balanced"
+        color="#2F80ED"
+        percentage={80}
+        emoji="🌀"
+      />
+      <DoshaCard
+        label="Kapha Balanced"
+        color="#3A643B"
+        percentage={70}
+        emoji="🌿"
+      />
+      <DoshaCard
+        label="Pitta Unbalanced"
+        color="#F2994A"
+        percentage={40}
+        emoji="🔥"
+        unbalanced
+      />
     </div>
   </div>
 );
 
-const DoshaCard = ({ label, color, unbalanced = false }) => {
+const DoshaCard = ({ label, color, percentage, emoji, unbalanced = false }) => {
+  // split “Vata Balanced” → “Vata”, “Balanced”
+  const [dosha, status] = label.split(" ");
+
+  // SVG circle math
+  const radius = 44; // slightly inset from viewbox
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = circumference * (1 - percentage / 100);
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="relative h-24 w-24">
-        {/* outer semicircle */}
-        <div
-          className="absolute inset-0 rounded-full border-[8px]"
-          style={{ borderColor: `${color}33` }}
-        />
-        {/* inner arc */}
-        <div
-          className="absolute inset-2 rounded-full border-[8px] border-t-[8px] border-l-[8px] border-b-0 border-r-0"
-          style={{ borderColor: color, transform: "rotate(135deg)" }}
-        />
-        {/* center icon */}
-        <div className="absolute inset-4 flex items-center justify-center rounded-full bg-[#FFF7E2]">
-          {label.startsWith("Vata") && (
-            <Droplets className="h-5 w-5 text-[#2F7B4A]" />
-          )}
-          {label.startsWith("Kapha") && (
-            <Leaf className="h-5 w-5 text-[#2F7B4A]" />
-          )}
-          {label.startsWith("Pitta") && (
-            <Flame className="h-5 w-5 text-[#E85C3C]" />
-          )}
+    <div className="flex flex-col items-center gap-3 text-center">
+      {/* progress ring */}
+      <div className="relative h-24 w-24 sm:h-28 sm:w-28 flex items-center justify-center">
+        <svg
+          className="absolute inset-0"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* background track */}
+          <circle
+            cx="50"
+            cy="50"
+            r={radius}
+            fill="transparent"
+            stroke="#FDEAD2"
+            strokeWidth="7"
+          />
+          {/* progress arc */}
+          <circle
+            cx="50"
+            cy="50"
+            r={radius}
+            fill="transparent"
+            stroke={color}
+            strokeWidth="7"
+            strokeDasharray={circumference}
+            strokeDashoffset={dashOffset}
+            strokeLinecap="round"
+            transform="rotate(-90 50 50)" // start from top
+          />
+        </svg>
+
+        {/* inner circle with emoji */}
+        <div className="relative h-[56%] w-[56%] rounded-full bg-[#FFF7E2] shadow-[0_8px_18px_rgba(0,0,0,0.12)] flex items-center justify-center text-2xl">
+          <span>{emoji}</span>
         </div>
       </div>
-      <p
-        className={`text-xs ${
-          unbalanced ? "text-[#E85C3C]" : "text-[#333333]"
-        }`}
-      >
-        {label}
+
+      {/* label */}
+      <p className="mt-1 text-xs sm:text-sm text-[#4F4F4F]">
+        <span>{dosha} </span>
+        <span
+          className={`font-semibold ${
+            unbalanced ? "text-[#E85C3C]" : "text-[#1A1A1A]"
+          }`}
+        >
+          {status}
+        </span>
       </p>
     </div>
   );
 };
 
-export default PrakritiImpactSection
+export default PrakritiImpactSection;

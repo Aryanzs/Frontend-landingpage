@@ -9,6 +9,8 @@ import { products as defaultProducts } from "../data/products";  // ⬅️ NEW
 const ProductCarouselSection = ({
   title = "Summer Collection",
   products = defaultProducts,
+  titleAlign = "left", // "left" | "center" | "right"
+
 }) => {
   const scrollRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -68,8 +70,20 @@ const ProductCarouselSection = ({
       {/* Responsive container with proper padding */}
       <div className="relative mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Header */}
-        <div className="mb-4 sm:mb-6">
-          <h2 className="text-base sm:text-lg md:text-xl font-semibold text-[#333333]">
+        <div className={`mb-4 sm:mb-6 flex ${
+    titleAlign === "center"
+      ? "justify-center"
+      : titleAlign === "right"
+      ? "justify-end"
+      : "justify-start"
+  }`}>
+          <h2 className={`text-base sm:text-lg md:text-xl font-semibold text-[#333333] ${
+      titleAlign === "center"
+        ? "text-center"
+        : titleAlign === "right"
+        ? "text-right"
+        : "text-left"
+    }`}>
             {title}
           </h2>
         </div>

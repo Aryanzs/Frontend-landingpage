@@ -2,7 +2,13 @@
 import React from "react";
 import { CheckCircle2 } from "lucide-react";
 import PrakritiImpactSection from "./PrakritiImpactSection";
-
+import BenefitsSection from "./BenefitsSection"
+import AyurvedicPropertiesSection from "./AyurvedicPropertiesSection";
+import ImportantFormulationsSection from "./ImportantFormulationsSection";
+import TherapeuticUsesSection from "./TherapeuticUsesSection";
+import PlantPartsSection from "./PlantPartsSection";
+import BestCombinedSection from "./BestCombinedSection";
+import GeographicalLocationsSection from "./GeographicalLocationsSection";
 const HerbHeroSection = ({ product }) => {
   return (
     <section className="mt-6 grid items-start gap-10 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
@@ -55,7 +61,14 @@ const HerbHeroSection = ({ product }) => {
             </BulletItem>
           </ul>
 
-          <PrakritiImpactSection  className="mt-8"/>
+          <PrakritiImpactSection/>
+          <BenefitsSection/>
+          <AyurvedicPropertiesSection/>
+          <ImportantFormulationsSection/>
+          <TherapeuticUsesSection/>
+          <PlantPartsSection/>
+          <BestCombinedSection/>
+          <GeographicalLocationsSection/>
         </div>
       </div>
     </section>

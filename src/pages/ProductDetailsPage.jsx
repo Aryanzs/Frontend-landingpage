@@ -2,12 +2,18 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import BackLink from "../components/ProductDetailsComponets/BackLink";
 import ProductHeroSection from "../components/ProductDetailsComponets/ProductHeroSection";
-import KeyIngredientsSection from "../components/ProductDetailsComponets/KeyIngredientsSection";
 import ReviewsSection from "../components/ProductDetailsComponets/ReviewsSection";
-
+import ProductCarouselSection from "../components/ProductCarouselSection"
 
 import { products } from "../data/products";
 import { herbs } from "../data/herbs";
+import MeetOurExpertsSection from "../components/MeetOurExpertsSection";
+import AppDownloadSection from "../components/AppDownloadSection";
+import Footer from "../components/Footer";
+import CategoryFilters from "../components/CategoryFilters";
+import Navbar from "../components/Navbar";
+import TopBar from "../components/TopBar";
+import StoreHeroSection from "../components/StoreHeroSection";
 
 
 const ProductDetailsPage = () => {
@@ -23,19 +29,32 @@ const ProductDetailsPage = () => {
 
 return (
   <main className="min-h-screen bg-brand-cream">
+    <TopBar/>
+    <Navbar/>
+    <StoreHeroSection/>
     <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 pt-8 pb-16">
       <BackLink />
 
-      <ProductHeroSection product={product} />
+      <ProductHeroSection product={product} herbs={productHerbs} />
 
-      <KeyIngredientsSection herbs={productHerbs} />
 
       <ReviewsSection
         rating={product.rating}
         reviewCount={product.reviewCount}
         reviews={productReviews}
       />
+              <section className="mt-12 border-t border-[#E5DCC8] pt-8">
+          <ProductCarouselSection
+              title="People also bought"
+  titleAlign="center"
+
+          />
+        </section>
     </div>
+            <MeetOurExpertsSection/>
+            <AppDownloadSection/>
+            <Footer/>
+
   </main>
 );
 
