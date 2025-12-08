@@ -9,7 +9,9 @@ const ProductCard = ({
   price = "₹649.00",
   size = "200 ml",
   rating = 5,
-  reviews = 52,
+  reviewCount = 0,  // ✅ Changed from "reviews" to "reviewCount"
+  reviews = [],      // ✅ Added reviews array (optional, for future use)
+
 }) => {
     const navigate = useNavigate();
 
@@ -49,7 +51,10 @@ const ProductCard = ({
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <span className="ml-1 text-[11px] text-[#4F4F4F]">({reviews})</span>
+          <span className="ml-1 text-[11px] text-[#4F4F4F]">
+            ({reviewCount})  {/* ✅ Changed from {reviews} to {reviewCount} */}
+
+          </span>
 
           <button
             type="button"

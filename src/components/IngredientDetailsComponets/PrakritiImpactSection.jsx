@@ -1,17 +1,17 @@
 
 import { Droplets, Leaf, Flame } from "lucide-react";
-const PrakritiImpactSection = () => (
-  <section className="mt-10">
+const PrakritiImpactSection = ({ className = "" }) => (
+  <div className={`mt-8 ${className}`}>
     <h2 className="mb-4 text-sm font-semibold text-[#333333]">
       Prakriti Impact
     </h2>
 
-    <div className="grid gap-6 sm:grid-cols-3 max-w-xl">
+    <div className="grid max-w-xs sm:max-w-sm gap-6 sm:grid-cols-3">
       <DoshaCard label="Vata Balanced" color="#2F7B4A" />
       <DoshaCard label="Kapha Balanced" color="#F4A11A" />
       <DoshaCard label="Pitta Unbalanced" color="#E85C3C" unbalanced />
     </div>
-  </section>
+  </div>
 );
 
 const DoshaCard = ({ label, color, unbalanced = false }) => {
