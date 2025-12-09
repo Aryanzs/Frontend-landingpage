@@ -143,7 +143,7 @@ const ProductHeroSection = ({ product, herbs = [] }) => {
         {/* Qty + Add to cart */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           {/* Long quantity counter */}
-          <div className="flex max-w-[260px] flex-1 items-center justify-between rounded-md border border-[[#333333]]  px-4 py-3 text-sm font-medium text-[#333333]">
+          <div className="flex  flex-1 items-center justify-between rounded-md border border-[[#333333]]  px-4 py-3 text-sm font-medium text-[#333333]">
             <button
               type="button"
               onClick={decreaseQty}

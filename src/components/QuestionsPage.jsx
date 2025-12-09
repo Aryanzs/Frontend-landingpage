@@ -5,23 +5,37 @@ import {
   MessageCircle,
   Bookmark,
   ChevronDown,
-  Send,
 } from "lucide-react";
 import { initialQuestions } from "../data/questions"; // 👈 adjust path if needed
-import ForumHeroSection from "./ForumHeroSection";
+import AskQuestionModal from "./AskQuestionModal"; // 👈 NEW
+
 
 
 const QuestionsPage = () => {
   const [activeTab, setActiveTab] = useState("questions");
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    details: "",
-    anonymous: false,
-  });
+
 
   // Initial sample data
 const [questions, setQuestions] = useState(initialQuestions);
+
+  const handleAddQuestion = ({ title, details, anonymous }) => {
+  const newQuestion = {
+    id: questions.length + 1,
+    author: anonymous ? "Anonymous" : currentUser.name,
+    avatar: anonymous ? null : currentUser.avatar,
+    timeAgo: "Just now",
+    title,
+    body: details || "No additional details provided.",
+    repliesCount: 0,
+    replyPreviewCount: 0,
+    likes: 0,
+    replies: 0,
+    saves: 0,
+    answers: [],
+  };
+    setQuestions([newQuestion, ...questions]);
+};
 
 
   const currentUser = {
@@ -29,37 +43,9 @@ const [questions, setQuestions] = useState(initialQuestions);
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
   };
 
-  const handleSubmit = () => {
-    if (!formData.title.trim()) {
-      alert("Please enter a question title");
-      return;
-    }
-
-    // Create new question object
-    const newQuestion = {
-      id: questions.length + 1,
-      author: formData.anonymous ? "Anonymous" : currentUser.name,
-      avatar: formData.anonymous ? null : currentUser.avatar,
-      timeAgo: "Just now",
-      title: formData.title,
-      body: formData.details || "No additional details provided.",
-      repliesCount: 0,
-      replyPreviewCount: 0,
-      likes: 0,
-      replies: 0,
-      saves: 0,
-      answers: [],
-    };
-
-    // Add new question to the beginning of the list
-    setQuestions([newQuestion, ...questions]);
-
-    // Reset form
-    setFormData({ title: "", details: "", anonymous: false });
-    setShowForm(false);
-  };
 
   return (
+    <>
     <div className="min-h-screen  py-8 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
@@ -78,7 +64,7 @@ const [questions, setQuestions] = useState(initialQuestions);
                 </span>
               </div>
               <button
-                onClick={() => setShowForm(!showForm)}
+                onClick={() => setShowForm(true)}
                 className="bg-[#3A643B] hover:bg-[#2d4f2e] text-white px-6 py-2.5 rounded-md text-sm font-medium transition-colors shadow-md"
               >
                 Ask Question
@@ -119,68 +105,6 @@ const [questions, setQuestions] = useState(initialQuestions);
             </div>
           </div>
 
-          {/* Ask Question Form */}
-          {showForm && (
-            <div className="bg-gray-50 border-b border-gray-200 px-6 py-5">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                    Question title
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    placeholder="Ask your Ayurveda related question..."
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#3A643B]/20 focus:border-[#3A643B]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                    Details (optional)
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={formData.details}
-                    onChange={(e) =>
-                      setFormData({ ...formData, details: e.target.value })
-                    }
-                    placeholder="Share symptoms, lifestyle, or any context that helps experts answer better."
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#3A643B]/20 focus:border-[#3A643B]"
-                  />
-                </div>
-
-                <div className="flex items-center justify-between pt-2">
-                  <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={formData.anonymous}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          anonymous: e.target.checked,
-                        })
-                      }
-                      className="w-4 h-4 rounded border-gray-300 text-[#3A643B] focus:ring-[#3A643B]"
-                    />
-                    Ask anonymously
-                  </label>
-
-                  <button
-                    onClick={handleSubmit}
-                    className="bg-[#3A643B] hover:bg-[#2d4f2e] text-white px-5 py-2 rounded-full text-xs font-medium transition-colors flex items-center gap-2"
-                  >
-                    Post Question
-                    <Send className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Content */}
           <div className="px-6 py-6">
             {activeTab === "questions" ? (
@@ -217,7 +141,14 @@ const [questions, setQuestions] = useState(initialQuestions);
           </div>
         </div>
       </div>
+      <AskQuestionModal
+      isOpen={showForm}
+      onClose={() => setShowForm(false)}
+      currentUser={currentUser}
+      onSubmit={handleAddQuestion}
+      />
     </div>
+    </>
   );
 };
 

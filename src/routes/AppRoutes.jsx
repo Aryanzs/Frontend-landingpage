@@ -1,17 +1,28 @@
 import { Routes, Route } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout.jsx";
-import Home from "../pages/Home.jsx";
-import About from "../pages/About.jsx";
-import NotFound from "../pages/NotFound.jsx";
+import Shop from "../pages/Shop.jsx";
+import IngredientDetailsPage from "../pages/IngredientDetailsPage.jsx";
+import ProductDetailsPage from "../pages/ProductDetailsPage.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import ForumPage from "../pages/ForumPage.jsx";
+
+
 
 export default function AppRoutes() {
   return (
+    <>
+    <ScrollToTop/>
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
+      {/* main shop page */}
+      <Route path="/" element={<Shop />} />
+      <Route path="/forum" element={<ForumPage/>} />
+
+
+  {/* Product detail (from carousel, store list etc.) */}
+  <Route path="/products/:id" element={<ProductDetailsPage/>} />
+
+  {/* Herb / ingredient detail – the long Chitrak page  */}
+  <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
     </Routes>
+    </>
   );
 }
