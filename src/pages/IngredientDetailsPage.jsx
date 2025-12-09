@@ -4,13 +4,6 @@ import {useParams} from "react-router-dom";
 
 import BackLink from "../components/IngredientDetailsComponets/BackLink";
 import HerbHeroSection from "../components/IngredientDetailsComponets/HerbHeroSection";
-import AyurvedicPropertiesSection from "../components/IngredientDetailsComponets/AyurvedicPropertiesSection";
-import ImportantFormulationsSection from "../components/IngredientDetailsComponets/ImportantFormulationsSection";
-import TherapeuticUsesSection from "../components/IngredientDetailsComponets/TherapeuticUsesSection";
-import PlantPartsSection from "../components/IngredientDetailsComponets/PlantPartsSection";
-import BestCombinedSection from "../components/IngredientDetailsComponets/BestCombinedSection";
-import GeographicalLocationsSection from "../components/IngredientDetailsComponets/GeographicalLocationsSection";
-
 import { herbs } from "../data/herbs";
 
 
