@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { Link, useLocation } from "react-router-dom";
 // icon imports – keep your existing filenames
 import phoneLineIcon from "../assets/icons/Vectortopbarborderphone.svg";
 import walletIcon from "../assets/icons/Frame 1171275545wallet.svg";
@@ -8,24 +8,21 @@ import bellIcon from "../assets/icons/Untitled-1 [Recovered]-04 2bell-icon.svg";
 import userIcon from "../assets/icons/Frame 1171275662people-icon.svg";
 import chevronDownIcon from "../assets/icons/downdown-arrow.svg";
 
-// Mock Link component - replace with your actual router Link
-const Link = ({ to, children, className, ...props }) => (
-  <a href={to} className={className} {...props}>
-    {children}
-  </a>
-);
+
 
 const navLinks = [
-  { label: "Home", to: "/", active: false },
-  { label: "Find Doctors", to: "/find-doctors", active: false },
-  { label: "Lab Tests", to: "/lab-tests", active: false },
-  { label: "Shop", to: "/shop", active: true },
-  { label: "Forum", to: "/forum", active: false },
-  { label: "About Us", to: "/about", active: false },
+  { label: "Home", to: "/home" },
+  { label: "Find Doctors", to: "/find-doctors"},
+  { label: "Lab Tests", to: "/lab-tests" },
+  { label: "Shop", to: "/" },
+    { label: "Forum", to: "/forum" },
+  { label: "About Us", to: "/about" },
 ];
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const location = useLocation();                      // <-- get current path
+
 
   return (
     <header className="w-full bg-[#FFF8F0] text-[#305632] font-sans shadow-sm">
@@ -63,19 +60,23 @@ const Navbar = () => {
 
           {/* center: nav links */}
           <div className="flex items-center justify-center gap-4 lg:gap-10 text-sm lg:text-base">
-            {navLinks.map((link) => (
+            {navLinks.map((link) =>{
+                    const isActive = location.pathname === link.to;  // <-- decide active
+
+             return (
               <Link
                 key={link.label}
                 to={link.to}
                 className={`pb-1 font-medium transition-all duration-200 ${
-                  link.active
+                  isActive
                     ? "text-[#305632] font-semibold underline decoration-2 underline-offset-8"
                     : "text-[#6B6E6B] hover:text-[#305632] hover:scale-105"
                 }`}
               >
                 {link.label}
               </Link>
-            ))}
+             );
+})}
           </div>
 
           {/* right: icons */}
@@ -137,20 +138,25 @@ const Navbar = () => {
 
             {/* Navigation links */}
             <nav className="flex flex-col gap-1 mt-2">
-              {navLinks.map((link) => (
+              {navLinks.map((link) =>{
+                    const isActive = location.pathname === link.to;
+
+
+               return (
                 <Link
                   key={link.label}
                   to={link.to}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`px-4 py-3 rounded-lg font-medium transition-all ${
-                    link.active
+                    isActive
                       ? "text-[#305632] bg-[#E9F1EA] font-semibold"
                       : "text-[#6B6E6B] hover:text-[#305632] hover:bg-[#E9F1EA]/50"
                   }`}
                 >
                   {link.label}
                 </Link>
-              ))}
+              );
+              })}
             </nav>
 
             {/* Additional icons */}
